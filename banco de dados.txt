@@ -1,0 +1,132 @@
+transçacion
+Parte (I) do projeto final dp para Dependente e DC para Dono de Conta ou pessoa do quem dependdem
+	
+	- SELECCIONE Dp.nome COMO 'Nome do dependente', Dc.nome AS 'Dono de --conta'
+	--DE
+	- (
+	--SELECT CC.id_conta, Cl.nome, CC.dependente
+	--DE cliente_conta AS CC
+	--JUNTAR AL CLIENTE COMO CL
+	--ON CC.id_cliente = CL.id
+	--DONDE CC.dependente = 1
+	--ORGANIZADO POR CC.id_conta  
+	-) AS Dp,
+	
+	- (
+	--SELECT CCII.id_conta, CLII.nome, CCII.dependente
+	--DE cliente_conta AS CCII
+	--JUNTAR AL CLIENTE COMO CLII
+	--ON CCII.id_cliente = CLII.id
+	--ONDE CCII.dependente = 0
+	--ORGANIZADO POR CCII.id_conta
+	  -) COMO DC
+	  --ONDE Dp.id_conta = DC.id_conta;
+	  
+	--Parte (II)
+	
+	---- Como 5 Contas com mais Transaçoes
+	- SELECCIONAR NC.numero AS 'Numero_de_conta', COUNT (*) AS 'Numero_de_transaçoes'
+	--DE transacao AS T
+	--JUNTAR a cliente_conta COMO CC
+	--ON CC.id = T.id_cliente_conta
+	--JUNTAR a conta AS NC
+	--ON NC.id = CC.id_conta
+	--ORGANIZADO POR Numero_de_conta
+	--ORGANIZADO POR Numero_de_transaçoes DESC
+	--LIMIT V;
+	
+	---- Como V Contas com menos Transaçoes
+	- SELECCIONAR NC.numero AS 'Numero_de_conta', COUNT (*) AS 'Numero_de_transaçoes'
+	--DE transacao AS T
+	--JUNTAR a cliente_conta COMO CC
+	--ON CC.id = T.id_cliente_conta
+	--JUNTAR a conta AS NC
+	--ON NC.id = CC.id_conta
+	--ORGANIZADO POR Numero_de_conta
+	--ORGANIZADO POR Numero_de_transaçoes ASC
+	--LIMIT 5;
+	
+	
+	--Parte (III)
+	
+	--Saldo Total de Transaçoes de cada conta
+	
+	SELECCIONE
+		CO.numero AS 'Numero de Conta',
+		ROUND (SUM (CASE WHEN descricao = 'deposito' THEN valor ELSE 0 END), 2) AS "Total de depositos (+)",
+		ROUND (SUM (CASE WHEN descricao = 'transferencia' THEN valor ELSE 0 END), 2) AS "Total de transferencias (+)",
+	    ROUND (SUM (CASE WHEN descricao = 'deposito' THEN valor ELSE 0 END) + SUM (CASE WHEN descricao = 'transferencia' THEN valor ELSE 0 END), 2) AS "TOTAL SALDO"
+	DESDE transacao AS T
+	JUNTAR a tipo_transacao AS TT
+		EN T.id_tipo_transacao = TT.id
+	JUNTAR a cliente_conta COMO CC
+	EN CC.id = T.id_cliente_conta
+	JUNTAR a conta AS CO
+	ON CO.id = CC.id_conta
+	GRUPO POR CC.id_conta
+	ORGANIZADO BY CC.id_conta;
+
+
+
+CREATE TABLE TRANÇASIONES (
+  `Parte` VARCHAR(78),
+  `I) do projeto final dp para Dependente e DC para Dono de Conta ou pessoa do quem dependdem` VARCHAR(29)
+);
+
+INSERT INTO TRANÇASIONES
+  (`Parte`, `I) do projeto final dp para Dependente e DC para Dono de Conta ou pessoa do quem dependdem`)
+VALUES
+  (' SELECCIONE Dp.nome COMO 'Nome do dependiente', Dc.nome AS 'Dono de --conta'),
+  ('--DE'),
+  ('--SELECT CC.id_conta, Cl.nome, CC.dependente'),
+  ('--DE cliente_conta AS CC'),
+  ('--JUNTAR AL CLIENTE COMO CL'),
+  ('--ON CC.id_cliente = CL.id'),
+  ('--DONDE CC.dependente = 1'),
+  ('--ORGANIZADO POR CC.id_conta'),
+  ('-) AS Dp,'),
+  ('--SELECT CCII.id_conta, CLII.nome, CCII.dependente'),
+  ('--DE cliente_conta AS CCII'),
+  ('--JUNTAR AL CLIENTE COMO CLII'),
+  ('--ON CCII.id_cliente = CLII.id'),
+  ('--ONDE CCII.dependente = 0'),
+  ('--ORGANIZADO POR CCII.id_conta'),
+  ('-) COMO DC'),
+  ('--ONDE Dp.id_conta = DC.id_conta;'),
+  ('--Parte', 'II)'),
+  ('---- Como 5 Contas com mais Transaçoes'),
+  ('- SELECCIONAR NC.numero AS 'Numero_de_conta', COUNT', ') AS 'Numero_de_transaçoes'),
+  ('--DE transacao AS T'),
+  ('--JUNTAR a cliente_conta COMO CC'),
+  ('--ON CC.id = T.id_cliente_conta'),
+  ('--JUNTAR a conta AS NC'),
+  ('--ON NC.id = CC.id_conta'),
+  ('--ORGANIZADO POR Numero_de_conta'),
+  ('--ORGANIZADO POR Numero_de_transaçoes DESC'),
+  ('--LIMIT V;'),
+  ('---- Como V Contas com menos Transaçoes'),
+  ('- SELECCIONAR NC.numero AS 'Numero_de_conta', COUNT', ') AS 'Numero_de_transaçoes'),
+  ('--DE transacao AS T'),
+  ('--JUNTAR a cliente_conta COMO CC'),
+  ('--ON CC.id = T.id_cliente_conta'),
+  ('--JUNTAR a conta AS NC'),
+  ('--ON NC.id = CC.id_conta'),
+  ('--ORGANIZADO POR Numero_de_conta'),
+  ('--ORGANIZADO POR Numero_de_transaçoes ASC'),
+  ('--LIMIT 5;'),
+  ('--Parte', 'III)'),
+  ('--Saldo Total de Transaçoes de cada conta'),
+  ('SELECCIONE'),
+  ('CO.numero AS 'Numero de Conta','),
+  ('ROUND', 'SUM'),
+  ('ROUND', 'SUM'),
+  ('ROUND', 'SUM'),
+  ('DESDE transacao AS T'),
+  ('JUNTAR a tipo_transacao AS TT'),
+  ('EN T.id_tipo_transacao = TT.id'),
+  ('JUNTAR a cliente_conta COMO CC'),
+  ('EN CC.id = T.id_cliente_conta'),
+  ('JUNTAR a conta AS CO'),
+  ('ON CO.id = CC.id_conta'),
+  ('GRUPO POR CC.id_conta'),
+  ('ORGANIZADO BY CC.id_conta;');
